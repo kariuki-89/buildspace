@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BuildSpace — Cost Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&family=Urbanist:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1E3970;
+  --navy-deep:#17366F;
+  --navy-ink:#203F7D;
+  --coral:#F4765B;
+  --coral-dark:#E0613F;
+  --coral-pale:rgba(244,118,91,0.08);
+  --coral-line:rgba(244,118,91,0.30);
+  --panel:#F5F7FB;
+  --panel-2:#EDF1F8;
+  --border:#DCDCDC;
+  --line:#EBEBEB;
+  --muted:#526B9B;
+  --light:#9AA6C0;
+  --white:#FFFFFF;
+  --green:#1FA971;
+  --font-sans:"Epilogue",-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+  --font-display:"Urbanist","Epilogue",Arial,sans-serif;
+  --radius:20px;
+  --radius-sm:14px;
+  /* Soft, colour-tinted depth — the signature of the live site's own pill
+     buttons and stat tiles, sampled from build-space-6329bb.webflow.io
+     rather than a generic neutral-grey shadow. */
+  --shadow:0 1px 2px rgba(30,57,112,.05), 0 20px 40px -18px rgba(30,57,112,.22);
+  --shadow-sm:0 1px 2px rgba(30,57,112,.05), 0 10px 24px -12px rgba(30,57,112,.14);
+  --shadow-btn:0 14px 30px -14px rgba(30,57,112,.55);
+  --shadow-btn-coral:0 14px 28px -12px rgba(244,118,91,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-sans);
+  font-size:15px;
+  line-height:1.55;
+  color:var(--navy);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+}
+.bs{max-width:940px;margin:0 auto;padding:22px 18px 40px}
+
+/* ── HEADER ── */
+.bs-top{display:flex;align-items:center;justify-content:flex-end;gap:16px;margin-bottom:26px}
+.bs-live{
+  display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--navy);
+  white-space:nowrap;background:var(--panel);border-radius:99px;padding:8px 14px 8px 12px;
+}
+.bs-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(31,169,113,.18)}
+
+/* ── PROGRESS ── */
+.bs-prog{display:flex;align-items:center;gap:8px;margin-bottom:30px}
+.bs-prog-step{flex:1;height:6px;border-radius:99px;background:var(--panel-2);overflow:hidden}
+.bs-prog-step i{display:block;height:100%;width:0;background:var(--coral);border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.bs-prog-step.done i,.bs-prog-step.active i{width:100%}
+.bs-prog-step.done{background:var(--coral-pale)}
+.bs-prog-label{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.02em;white-space:nowrap;min-width:72px;text-align:right}
+
+/* ── HEADINGS ── */
+.bs-q{
+  font-family:var(--font-display);
+  font-size:clamp(28px,4.8vw,40px);
+  font-weight:600;
+  letter-spacing:-.04em;
+  line-height:1.12;
+  margin-bottom:10px;
+}
+.bs-q em{font-style:italic;color:var(--coral);font-weight:600}
+.bs-sub{font-size:15.5px;color:var(--muted);margin-bottom:28px;max-width:56ch;line-height:1.5}
+.bs-screen{animation:fade .34s cubic-bezier(.4,0,.2,1)}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── CARD GRIDS ── */
+.bs-grid{display:grid;gap:16px}
+.bs-grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.bs-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.bs-card{
+  position:relative;display:flex;flex-direction:column;text-align:left;
+  background:var(--white);border:1.5px solid transparent;border-radius:var(--radius);
+  padding:0;overflow:hidden;cursor:pointer;font:inherit;color:inherit;
+  box-shadow:var(--shadow-sm);
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+  min-height:44px;
+}
+.bs-card:hover{border-color:var(--coral-line);box-shadow:var(--shadow);transform:translateY(-3px)}
+.bs-card:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.bs-card[aria-checked="true"]{
+  border-color:var(--coral);
+  box-shadow:0 0 0 2px var(--coral), 0 20px 40px -18px rgba(244,118,91,.45);
+}
+.bs-card-fig{
+  width:100%;aspect-ratio:3/2;
+  background:linear-gradient(160deg,var(--panel-2) 0%,var(--panel) 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.bs-card-fig svg,.bs-card-fig img{width:100%;height:100%;object-fit:cover;display:block}
+.bs-card-fig svg{object-fit:contain;padding:10px}
+.bs-card-body{padding:16px 18px 18px}
+.bs-card-label{display:block;font-family:var(--font-display);font-size:17.5px;font-weight:600;letter-spacing:-.02em;line-height:1.25;margin-bottom:5px}
+.bs-card-desc{display:block;font-size:13.5px;color:var(--muted);line-height:1.5}
+.bs-card-price{
+  display:inline-block;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--coral-dark);
+  background:var(--coral-pale);border:1px solid var(--coral-line);border-radius:99px;padding:5px 12px;
+  letter-spacing:-.01em;
+}
+.bs-card-price.neutral{color:var(--muted);background:var(--panel);border-color:transparent;font-weight:600}
+.bs-tick{
+  position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;
+  background:var(--coral);display:none;align-items:center;justify-content:center;
+  box-shadow:0 6px 14px -4px rgba(244,118,91,.6);
+}
+.bs-card[aria-checked="true"] .bs-tick{display:flex}
+.bs-tick svg{width:13px;height:13px}
+
+/* ── LEGEND ── */
+.bs-legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;font-size:12.5px;font-weight:500;color:var(--muted)}
+.bs-legend span{display:flex;align-items:center;gap:8px}
+.bs-legend i{width:12px;height:12px;border-radius:4px;display:block}
+.bs-legend i.ex{background:#DDE3EE}
+.bs-legend i.pr{background:var(--coral)}
+.bs-legend i.gl{background:var(--navy)}
+
+/* ── SCOPE (wide rows) ── */
+.bs-scope{display:grid;gap:14px}
+.bs-scope .bs-card{flex-direction:row;align-items:center;padding:16px 18px;gap:16px}
+.bs-scope-icon{
+  flex:0 0 56px;width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  display:flex;align-items:center;justify-content:center;
+}
+.bs-scope-icon svg{width:26px;height:26px}
+.bs-scope-body{flex:1}
+.bs-scope-body .bs-card-desc{max-width:52ch}
+.bs-scope .bs-card-price,.bs-scope .bs-card-price.neutral{margin-top:8px}
+
+/* ── FORM ── */
+.bs-field{margin-bottom:16px}
+.bs-label{display:block;font-size:13px;font-weight:600;letter-spacing:.01em;margin-bottom:6px;color:var(--navy)}
+.bs-label .opt{font-weight:400;color:var(--light)}
+.bs-input,.bs-select,.bs-textarea{
+  width:100%;font:inherit;font-size:15px;color:var(--navy);background:var(--panel);
+  border:1.5px solid transparent;border-radius:var(--radius-sm);padding:13px 15px;
+  min-height:48px;transition:border-color .18s,box-shadow .18s,background .18s;
+}
+.bs-textarea{min-height:88px;resize:vertical;line-height:1.5}
+.bs-input:focus,.bs-select:focus,.bs-textarea:focus{outline:none;border-color:var(--coral);background:var(--white);box-shadow:0 0 0 4px var(--coral-pale)}
+.bs-input::placeholder{color:var(--light)}
+.bs-input.err,.bs-select.err{border-color:#D64545;box-shadow:0 0 0 3px rgba(214,69,69,.08)}
+.bs-err{display:none;font-size:12.5px;color:#D64545;margin-top:5px}
+.bs-err.on{display:block}
+.bs-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bs-hint{font-size:12.5px;color:var(--light);margin-top:6px}
+
+/* ── BUTTONS ── */
+.bs-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font:inherit;font-size:15px;font-weight:600;letter-spacing:-.01em;
+  background:var(--coral);color:var(--white);border:1.5px solid var(--coral);
+  border-radius:99px;padding:14px 27px;min-height:50px;cursor:pointer;
+  box-shadow:var(--shadow-btn-coral);
+  transition:background .18s,border-color .18s,transform .15s,box-shadow .18s;
+}
+.bs-btn:hover{background:var(--coral-dark);border-color:var(--coral-dark);transform:translateY(-1px);box-shadow:0 18px 32px -12px rgba(244,118,91,.55)}
+.bs-btn:active{transform:translateY(1px);box-shadow:var(--shadow-btn-coral)}
+.bs-btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.bs-btn[disabled]{opacity:.55;cursor:not-allowed;box-shadow:none;transform:none}
+.bs-btn.navy{background:var(--navy);border-color:var(--navy);box-shadow:var(--shadow-btn)}
+.bs-btn.navy:hover{background:var(--navy-deep);border-color:var(--navy-deep);box-shadow:0 18px 32px -12px rgba(30,57,112,.6)}
+.bs-btn.ghost{background:transparent;color:var(--navy);border-color:var(--border);box-shadow:none}
+.bs-btn.ghost:hover{background:var(--panel);border-color:var(--navy);transform:none}
+.bs-btn.full{width:100%}
+.bs-nav{display:flex;align-items:center;gap:10px;margin-top:26px;flex-wrap:wrap}
+.bs-link{
+  background:none;border:none;font:inherit;font-size:14px;color:var(--muted);
+  cursor:pointer;padding:10px 4px;min-height:44px;text-decoration:underline;text-underline-offset:3px;
+}
+.bs-link:hover{color:var(--navy)}
+.bs-link:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}
+.bs-spacer{flex:1}
+
+/* ── SUMMARY STRIP (conversion stage) ── */
+.bs-summary{
+  display:flex;align-items:center;gap:14px;border:1.5px solid transparent;
+  border-radius:var(--radius);padding:10px 16px 10px 10px;margin-bottom:22px;
+  background:var(--white);box-shadow:var(--shadow-sm);
+}
+.bs-summary-fig{flex:0 0 96px;height:66px;border-radius:14px;overflow:hidden;background:linear-gradient(160deg,var(--panel-2),var(--panel));display:flex;align-items:center;justify-content:center}
+.bs-summary-fig svg{width:100%;height:100%;object-fit:contain}
+.bs-summary-fig img{width:100%;height:100%;object-fit:cover}
+.bs-summary-body{flex:1;min-width:0}
+.bs-summary-label{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.bs-summary-meta{font-size:13px;color:var(--muted);margin-top:2px}
+
+/* ── RESULT ── */
+.bs-result-hero{
+  position:relative;
+  background:var(--navy);color:var(--white);border-radius:var(--radius);
+  padding:0;overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow);
+}
+/* soft ambient glow, brand-coloured — the airy quality of the live site's
+   own hero without reusing any of its illustration */
+.bs-result-hero::before,.bs-result-hero::after{
+  content:"";position:absolute;border-radius:50%;pointer-events:none;
+}
+.bs-result-hero::before{width:340px;height:340px;background:radial-gradient(circle,rgba(244,118,91,.35),transparent 70%);top:-160px;right:-100px}
+.bs-result-hero::after{width:280px;height:280px;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%);bottom:-140px;left:-80px}
+.bs-hero-fig{width:100%;aspect-ratio:16/7;background:var(--navy-deep);display:flex;align-items:center;justify-content:center;position:relative}
+.bs-hero-fig svg,.bs-hero-fig img{width:100%;height:100%;object-fit:contain;padding:6px}
+.bs-hero-fig img{object-fit:cover;padding:0}
+.bs-hero-body{padding:26px 28px 28px;position:relative}
+.bs-hero-eyebrow{font-size:13px;color:rgba(255,255,255,.72);margin-bottom:12px}
+.bs-hero-eyebrow strong{color:var(--white);font-weight:600}
+.bs-price-main{
+  font-family:var(--font-display);font-size:clamp(30px,5.4vw,44px);font-weight:600;
+  letter-spacing:-.04em;line-height:1.05;color:var(--white);
+}
+.bs-price-main .vat{font-size:.44em;font-weight:500;color:rgba(255,255,255,.7);letter-spacing:-.01em}
+.bs-price-inc{
+  font-family:var(--font-display);font-size:clamp(22px,3.6vw,30px);font-weight:600;
+  letter-spacing:-.035em;line-height:1.1;color:var(--coral);margin-top:10px;
+}
+.bs-price-inc .vat{font-size:.5em;font-weight:500;color:rgba(255,255,255,.62);letter-spacing:-.01em;display:block;margin-top:2px}
+.bs-qual{
+  margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);
+  font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.78);max-width:58ch;
+}
+/* Stat-tile row inside the result hero. Modelled directly on the live
+   site's own "Est. cost / Timeline / Planning route" boxes so the guide's
+   headline numbers read as the same component language as the site. */
+.bs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.bs-stat{
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:14px 16px;
+}
+.bs-stat-label{font-size:10.5px;font-weight:600;letter-spacing:.03em;color:rgba(255,255,255,.62);text-transform:uppercase}
+.bs-stat-value{font-family:var(--font-display);font-size:clamp(15px,2vw,18px);font-weight:600;letter-spacing:-.02em;color:var(--white);margin-top:4px;line-height:1.25}
+.bs-block{border:1px solid transparent;border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;background:var(--white);box-shadow:var(--shadow-sm)}
+.bs-block.tint{background:var(--panel);box-shadow:none}
+.bs-block.coral{background:var(--coral-pale);border-color:var(--coral-line);box-shadow:none}
+.bs-block h3{font-family:var(--font-display);font-size:17.5px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+.bs-list{list-style:none;display:grid;gap:9px}
+.bs-list li{display:flex;gap:10px;font-size:14px;line-height:1.5;color:var(--navy-ink)}
+.bs-list li::before{
+  content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-top:8px;
+}
+.bs-list.check li::before{background:var(--green)}
+.bs-note{font-size:13px;line-height:1.5;color:var(--muted)}
+.bs-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* ── FORM CARD ── */
+.bs-form-card{border:1.5px solid transparent;border-radius:var(--radius);padding:26px;background:var(--white);box-shadow:var(--shadow)}
+.bs-form-card h3{font-family:var(--font-display);font-size:clamp(21px,3vw,26px);font-weight:600;letter-spacing:-.03em;margin-bottom:6px}
+.bs-form-card h3 em{font-style:italic;color:var(--coral)}
+.bs-drop{
+  display:block;position:relative;overflow:hidden;
+  border:1.5px dashed var(--border);border-radius:var(--radius-sm);padding:18px;text-align:center;
+  cursor:pointer;transition:border-color .18s,background .18s;background:var(--panel);
+}
+.bs-drop:hover{border-color:var(--coral);background:var(--coral-pale)}
+.bs-drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0;padding:0}
+.bs-drop-t{display:block;font-size:14px;font-weight:600}
+.bs-drop-s{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+.bs-files{list-style:none;margin-top:10px;display:grid;gap:6px}
+.bs-files li{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);background:var(--panel);border-radius:8px;padding:7px 10px}
+.bs-files button{background:none;border:none;color:var(--muted);cursor:pointer;font:inherit;padding:2px 6px;min-height:auto}
+.bs-files button:hover{color:#D64545}
+.bs-consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.45;margin-top:4px}
+.bs-consent input{width:18px;height:18px;margin-top:1px;flex:none;accent-color:var(--coral)}
+.bs-privacy{font-size:12.5px;color:var(--light);margin-top:12px;text-align:center}
+.bs-privacy a{color:var(--muted)}
+.bs-formerr{
+  display:none;background:rgba(214,69,69,.07);border:1px solid rgba(214,69,69,.3);color:#B03030;
+  border-radius:var(--radius-sm);padding:12px 14px;font-size:13.5px;margin-bottom:14px;line-height:1.45;
+}
+.bs-formerr.on{display:block}
+
+/* ── SUCCESS / TAILORED ── */
+.bs-center{text-align:center;max-width:560px;margin:0 auto;padding:18px 0}
+.bs-icon-lg{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(160deg,var(--coral-pale),rgba(244,118,91,.14));
+  box-shadow:0 16px 30px -16px rgba(244,118,91,.5);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 22px;
+}
+.bs-icon-lg.ok{background:linear-gradient(160deg,rgba(31,169,113,.10),rgba(31,169,113,.18));box-shadow:0 16px 30px -16px rgba(31,169,113,.45)}
+.bs-icon-lg svg{width:28px;height:28px}
+.bs-postcode-wrap{max-width:420px}
+.bs-small{font-size:12.5px;color:var(--light);line-height:1.5;margin-top:14px}
+.bs-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--light);line-height:1.55}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (max-width:700px){
+  .bs{padding:18px 16px 32px}
+  .bs-grid.cols-2,.bs-grid.cols-3{grid-template-columns:1fr}
+  .bs-two,.bs-row{grid-template-columns:1fr}
+  .bs-card-fig{aspect-ratio:16/9}
+  .bs-hero-body{padding:20px}
+  .bs-block{padding:18px}
+  .bs-form-card{padding:20px}
+  .bs-scope .bs-card{flex-direction:column;align-items:flex-start;text-align:left}
+  .bs-scope-icon{margin-bottom:4px}
+  .bs-prog-label{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="bs">
+  <header class="bs-top">
+    <div class="bs-live"><span class="bs-dot" aria-hidden="true"></span>Free cost guide</div>
+  </header>
+
+  <div class="bs-prog" id="bsProg" hidden>
+    <div class="bs-prog-step" data-step="1"><i></i></div>
+    <div class="bs-prog-step" data-step="2"><i></i></div>
+    <div class="bs-prog-step" data-step="3"><i></i></div>
+    <div class="bs-prog-label" id="bsProgLabel">Step 1 of 3</div>
+  </div>
+
+  <main id="bsMain"></main>
+
+  <footer class="bs-foot">
+    Indicative construction budgets only. Figures exclude VAT unless stated and are subject to survey,
+    design, access and agreed specification. Not a quotation.
+    BuildSpace Projects Ltd.
+  </footer>
+</div>
+<script>
+/* ============================================================================
+   BUILDSPACE COST GUIDE
+   Built to "BuildSpace Cost Guide Developer Specification" v1.0 (14 Sep 2026).
+   Journey: Option A — category -> type -> scope -> instant result -> contact.
+
+   EVERYTHING EDITABLE LIVES IN `CONFIG` BELOW.
+   No price, allowance, duration or caveat is hard-coded anywhere else.
+   ========================================================================== */
+
+var CONFIG = {
+
+  /* ---- journey order ---------------------------------------------------
+     "conversion_first"  Spec §2 stage table: Entry > Screen 1 > Screen 2 >
+                         Screen 3 > Conversion > Result. Contact details are
+                         collected before the cost guide is shown.
+     "result_first"      Spec §1 Option A / §8: the estimate is shown first and
+                         the contact form sits at the foot of the result.
+     The specification states both. §2 is implemented as the default.
+     BuildSpace to confirm which stands; changing this line switches it. */
+  journey: "conversion_first",
+
+  /* ---- commercial settings -------------------------------------------- */
+  vatRate: 0.20,
+  roundToNearest: 1000,
+
+  /* ---- combined projects (loft + extension in one programme) -----------
+     Spec §2.3 warns against adding two estimates together, because shared
+     preliminaries, access, programme and management are not additive.
+     BuildSpace has asked for a price on every category, so the two base
+     ranges are summed and then adjusted:
+       low   the bottom of the range nets off the costs paid once rather
+             than twice — scaffold, welfare, skips, site management, one
+             mobilisation and one programme.
+       high  the top of the range widens, because running two areas of work
+             together carries sequencing and coordination risk.
+     Both values are editable. Set both to 1 for a straight sum. */
+  combinedAdjustment: { low: 0.94, high: 1.04 },
+
+  /* Regional adjustment. Spec §9.3: only apply if BuildSpace has DEFINED and
+     APPROVED a service-area rule. Do not invent a London multiplier.
+     Example (inactive): { "SW": 1.05 }  */
+  regionalAdjustments: {},
+
+  /* ---- service area ---------------------------------------------------- */
+  /* Set restrictToServiceArea:true once BuildSpace confirms the outward-code
+     list. While false, every valid UK postcode is accepted. */
+  restrictToServiceArea: false,
+  serviceAreaPrefixes: ["E","EC","N","NW","SE","SW","W","WC","BR","CR","DA","EN","HA","IG","KT","RM","SM","TW","UB","WD","CM","SS","CO"],
+
+  /* ---- lead delivery --------------------------------------------------- */
+  /* Every completed form is delivered to this inbox. */
+  leadEmail: "info@buildspaceprojects.co.uk",
+
+  /* A browser cannot send email by itself, so submissions are POSTed to a
+     relay which forwards to leadEmail. Spec §11.3: server-backed, and no
+     private API key is exposed in browser JavaScript — there is none here.
+
+     DEFAULT (works immediately, no account needed): FormSubmit relays
+     straight to leadEmail. IMPORTANT — BuildSpace must open the activation
+     email FormSubmit sends after the very first real submission and click
+     the confirmation link inside it. Nothing is delivered until that link
+     is clicked, so send one test lead and activate it before launch.
+
+     BETTER, once available — point leadEndpoint at either:
+       - the Webflow Form action for a native form on this page, or
+       - your own endpoint / CRM webhook (HubSpot, Zapier, Make).
+     Only the two lines below need to change; nothing else depends on them.
+     Photo attachments are not guaranteed on the free relay — use your own
+     endpoint if photos must arrive with the lead every time. */
+  leadEndpoint: "https://formsubmit.co/ajax/info@buildspaceprojects.co.uk",
+  leadSubject: "New cost guide enquiry",
+
+  /* demoMode only applies when leadEndpoint is empty. Spec §12.2: a failed
+     submission must never display a success message. */
+  demoMode: false,
+  privacyUrl: "/privacy",
+  phone: "",
+
+  /* ---- image assets ---------------------------------------------------- */
+  /* Drop the named files from spec §10 into this folder and set `image` on any
+     record below. When `image` is empty the built-in diagram is used. */
+  imageBase: "/images/estimator/",
+
+  /* ---- completion allowances (spec §7) --------------------------------- */
+  /* Provisional. BuildSpace to confirm before publication and revise after
+     comparing the first ten estimator leads with actual quotations. */
+  allowances: {
+    loft:      { low: 10000, high: 18000 },
+    extension: { low: 20000, high: 40000 }
+  },
+
+  /* ---- planning caveats (spec §5 / §6) --------------------------------- */
+  planningText: {
+    pd:        "Planning requirements depend on the property and previous alterations. Permitted development may apply, but this must be checked.",
+    mansard:   "Mansard roof alterations normally require a planning application. We will confirm the route after reviewing your property.",
+    combined:  "Each element has its own planning route, and they are usually submitted together. We will confirm whether permitted development, prior approval or a planning application is appropriate for the loft and for the extension after reviewing the property.",
+    refurbishment: "Internal refurbishment does not normally need planning permission, but building regulations approval and party wall notices often apply. Listed buildings and conservation areas have their own requirements, which we will check.",
+    extension: "The planning route depends on depth, height, boundaries, previous extensions and local restrictions. We will confirm whether permitted development, prior approval or a planning application is appropriate."
+  },
+
+  /* Short, per-type chip label for the result hero's stat row. Never a
+     single universal phrase (spec §6.3 rules out defaulting every result to
+     "PD likely") — each key has its own wording, and the full caveat above
+     is still shown in the Planning route block underneath. */
+  planningShort: {
+    pd: "Permitted development likely",
+    mansard: "Planning application needed",
+    combined: "Two planning routes",
+    refurbishment: "Building regs, usually no PP",
+    extension: "Route to be confirmed"
+  },
+
+  /* ---- scope options (spec §7) ----------------------------------------- */
+  scopes: [
+    {
+      id: "construction",
+      label: "Construction package",
+      short: "Construction package",
+      desc: "Structural work, roof and external envelope, staircase where applicable, insulation, plaster finish, standard electrical and heating alterations, and management of the building work.",
+      includes: [
+        "Structural work and steelwork",
+        "Roof and external envelope",
+        "Staircase where applicable",
+        "Insulation and plaster finish",
+        "Standard electrical and heating alterations",
+        "Management of the building work"
+      ]
+    },
+    {
+      id: "complete",
+      label: "Completed finish",
+      short: "Completed finish",
+      desc: "Everything in the construction package, plus agreed allowances for sanitaryware or kitchen elements, tiling, decorating and floor finishes.",
+      includes: [
+        "Everything in the construction package",
+        "Agreed sanitaryware or kitchen allowance",
+        "Tiling to wet areas",
+        "Decoration throughout the new space",
+        "Floor finishes"
+      ]
+    }
+  ],
+
+  /* ---- things that could change the price (spec §8.3, max five) --------- */
+  movers: {
+    loft: [
+      "Existing roof structure and available head height",
+      "Staircase position and the alterations it needs below",
+      "Bathroom or en-suite scope",
+      "Site access for materials and waste",
+      "Planning and party wall requirements"
+    ],
+    combined: [
+      "How the two areas are sequenced and shared access between them",
+      "Existing roof structure, head height and staircase position",
+      "Structural openings and steelwork to the existing house",
+      "Glazing, kitchen and internal refurbishment scope",
+      "Planning route for each element and party wall requirements"
+    ],
+    refurbishment: [
+      "How many rooms are involved and how far back they are stripped",
+      "Rewiring, plumbing and heating replacement",
+      "Kitchen and bathroom specification",
+      "Structural alterations and layout changes",
+      "Age, condition and access of the property"
+    ],
+    extension: [
+      "Footprint and depth of the new space",
+      "Structural openings and steelwork to the existing house",
+      "Drainage runs and any diversions",
+      "Glazing type, size and specification",
+      "Kitchen or internal refurbishment scope"
+    ]
+  },
+
+  /* ---- categories (spec §4) -------------------------------------------- */
+  categories: [
+    { id:"loft",           label:"Loft conversion",       desc:"Create bedrooms, a bathroom or a larger top floor.",        image:"", alt:"Loft conversion",       branch:"types" },
+    { id:"extension",      label:"Ground floor extension", desc:"Add space for a kitchen, dining or family room.",           image:"", alt:"Ground floor extension", branch:"types" },
+    { id:"combined",       label:"Loft and extension",     desc:"Plan and deliver both areas as one coordinated project.",   image:"", alt:"Loft and extension",     branch:"types" },
+    { id:"refurbishment",  label:"Home refurbishment",     desc:"Rework and finish several rooms or the whole property.",    image:"", alt:"Home refurbishment",     branch:"types" }
+  ],
+
+  /* ---- screen 2 question per category (spec §5, §6) -------------------- */
+  typeQuestion: {
+    loft:          { q:'Which <em>loft shape</em> looks closest to your project?',       sub:'Choose the nearest option. We will confirm what is possible after reviewing the property.' },
+    extension:     { q:'Which <em>extension shape</em> looks closest to your project?',  sub:'Choose the nearest layout. No measurements are needed at this stage.' },
+    combined:      { q:'Which <em>combination</em> looks closest to your project?',      sub:'Choose the nearest pairing. We will confirm the loft roof form after reviewing the property.' },
+    refurbishment: { q:'How much of the home are you <em>reworking?</em>',               sub:'Choose the nearest option. We will confirm the detail on a short call.' }
+  },
+
+  notSureDesc: {
+    loft:          "Show us the property and we will identify the roof form.",
+    extension:     "Show us the property and we will identify the layout.",
+    combined:      "Show us the property and we will identify both elements.",
+    refurbishment: "Tell us what is bothering you and we will work out the scope."
+  },
+
+  /* Shown on the result for any record with `combines`, so the customer can
+     see the figure is one coordinated programme, not two projects added up. */
+  combinedNote: "This is the two elements delivered as one coordinated programme. The costs paid once rather than twice — scaffold, site set-up, management and a single programme — are already netted off, so it is lower than pricing the loft and the extension separately.",
+
+  /* ---- tailored-project message (spec §2.3, exact wording) -------------- */
+  tailoredMessage: "Your project combines several areas of work, so a standard online range would be misleading. Send us your postcode and a few details and we will prepare an initial budget after a short call.",
+  notSureMessage: "No problem — the roof or layout type is something we identify from the property, not from you. Send us your postcode and a few details and we will confirm the right option and an initial budget after a short call.",
+
+  /* ---- PROJECT TYPES: the single editable price source (spec §9, §11.1) - */
+  projectTypes: [
+    { id:"rear_dormer", category:"loft", label:"Rear dormer",
+      description:"Full-width box dormer to the rear roof slope.",
+      price_low_ex_vat:55000, price_high_ex_vat:65000,
+      complete_low_uplift:10000, complete_high_uplift:18000,
+      duration_min_weeks:10, duration_max_weeks:12,
+      planning:"pd", image:"", diagram:"loft_rear_dormer",
+      active:true, display_order:1 },
+
+    { id:"rear_mansard", category:"loft", label:"Rear mansard with raised parapet",
+      description:"Near-vertical rear slope with a shallow roof and raised parapets.",
+      price_low_ex_vat:65000, price_high_ex_vat:80000,
+      complete_low_uplift:10000, complete_high_uplift:18000,
+      duration_min_weeks:12, duration_max_weeks:16,
+      planning:"mansard", image:"", diagram:"loft_rear_mansard",
+      active:true, display_order:2 },
+
+    { id:"l_dormer", category:"loft", label:"L shaped dormer",
+      description:"Main rear dormer plus a lower dormer over the rear outrigger.",
+      price_low_ex_vat:60000, price_high_ex_vat:75000,
+      complete_low_uplift:10000, complete_high_uplift:18000,
+      duration_min_weeks:12, duration_max_weeks:14,
+      planning:"pd", image:"", diagram:"loft_l_dormer",
+      active:true, display_order:3 },
+
+    { id:"hip_gable_dormer", category:"loft", label:"Hip to gable with rear dormer",
+      description:"Sloping hip rebuilt as a vertical gable, with a rear dormer.",
+      price_low_ex_vat:60000, price_high_ex_vat:75000,
+      complete_low_uplift:10000, complete_high_uplift:18000,
+      duration_min_weeks:12, duration_max_weeks:14,
+      planning:"pd", image:"", diagram:"loft_hip_gable_dormer",
+      active:true, display_order:4 },
+
+    { id:"l_mansard", category:"loft", label:"L shaped mansard",
+      description:"Mansard to the main rear roof, continuing over the outrigger.",
+      price_low_ex_vat:75000, price_high_ex_vat:90000,
+      complete_low_uplift:10000, complete_high_uplift:18000,
+      duration_min_weeks:14, duration_max_weeks:18,
+      planning:"mansard", image:"", diagram:"loft_l_mansard",
+      active:true, display_order:5 },
+
+    { id:"hip_gable_mansard", category:"loft", label:"Hip to gable with mansard",
+      description:"Vertical gable end combined with a rear mansard roof form.",
+      price_low_ex_vat:85000, price_high_ex_vat:100000,
+      complete_low_uplift:10000, complete_high_uplift:18000,
+      duration_min_weeks:16, duration_max_weeks:20,
+      planning:"mansard", image:"", diagram:"loft_hip_gable_mansard",
+      active:true, display_order:6 },
+
+    { id:"rear_extension", category:"extension", label:"Rear extension",
+      description:"Full-width single-storey addition across the back of the house.",
+      price_low_ex_vat:60000, price_high_ex_vat:80000,
+      complete_low_uplift:20000, complete_high_uplift:40000,
+      duration_min_weeks:12, duration_max_weeks:16,
+      planning:"extension", image:"", diagram:"ext_rear",
+      active:true, display_order:1,
+      note:"This range assumes a typical single-storey domestic extension." },
+
+    { id:"side_return_short", category:"extension", label:"Short side return infill",
+      description:"Narrow side return filled for a short section beside the rear room.",
+      price_low_ex_vat:65000, price_high_ex_vat:75000,
+      complete_low_uplift:20000, complete_high_uplift:40000,
+      duration_min_weeks:12, duration_max_weeks:16,
+      planning:"extension", image:"", diagram:"ext_side_short",
+      active:true, display_order:2 },
+
+    { id:"side_return_long", category:"extension", label:"Long side return infill",
+      description:"Side return filled along most of the rear outrigger length.",
+      price_low_ex_vat:75000, price_high_ex_vat:90000,
+      complete_low_uplift:20000, complete_high_uplift:40000,
+      duration_min_weeks:14, duration_max_weeks:18,
+      planning:"extension", image:"", diagram:"ext_side_long",
+      active:true, display_order:3 },
+
+    { id:"wraparound", category:"extension", label:"Wraparound extension",
+      description:"L-shaped footprint covering the rear and the side return.",
+      price_low_ex_vat:75000, price_high_ex_vat:100000,
+      complete_low_uplift:20000, complete_high_uplift:40000,
+      duration_min_weeks:14, duration_max_weeks:20,
+      planning:"extension", image:"", diagram:"ext_wrap",
+      active:true, display_order:4 },
+
+    /* --- Loft and extension. Priced by combining the two base records
+       named in `combines`, then applying CONFIG.combinedAdjustment.
+       Changing a loft or extension price above updates these automatically. --- */
+    { id:"combined_dormer_rear", category:"combined", label:"Rear dormer and rear extension",
+      description:"Full-width rear dormer above, full-width rear extension below.",
+      combines:["rear_dormer","rear_extension"],
+      duration_min_weeks:20, duration_max_weeks:26,
+      planning:"combined", image:"", diagram:"combined_rear",
+      active:true, display_order:1 },
+
+    { id:"combined_dormer_side", category:"combined", label:"Rear dormer and side return",
+      description:"Rear dormer above, side return infilled along the outrigger.",
+      combines:["rear_dormer","side_return_long"],
+      duration_min_weeks:22, duration_max_weeks:28,
+      planning:"combined", image:"", diagram:"combined_side",
+      active:true, display_order:2 },
+
+    { id:"combined_dormer_wrap", category:"combined", label:"Rear dormer and wraparound",
+      description:"Rear dormer above, wraparound extension across the rear and side.",
+      combines:["rear_dormer","wraparound"],
+      duration_min_weeks:24, duration_max_weeks:32,
+      planning:"combined", image:"", diagram:"combined_wrap",
+      active:true, display_order:3 },
+
+    { id:"combined_mansard_rear", category:"combined", label:"Mansard and rear extension",
+      description:"Rear mansard above, full-width rear extension below.",
+      combines:["rear_mansard","rear_extension"],
+      duration_min_weeks:24, duration_max_weeks:30,
+      planning:"combined", image:"", diagram:"combined_mansard",
+      active:true, display_order:4 },
+
+    /* --- Home refurbishment.
+       PROVISIONAL. The specification supplies no refurbishment figures, so
+       these are placeholder construction budgets for a typical London or
+       South East property and MUST be confirmed by BuildSpace before launch,
+       in the same way as the completion allowances in §7. --- */
+    { id:"refurb_whole", category:"refurbishment", label:"Whole property",
+      description:"Every room reworked and finished throughout.",
+      price_low_ex_vat:80000, price_high_ex_vat:160000,
+      complete_low_uplift:30000, complete_high_uplift:70000,
+      duration_min_weeks:24, duration_max_weeks:36,
+      planning:"refurbishment", image:"", diagram:"refurb_whole",
+      active:true, display_order:1,
+      note:"This range assumes the property is habitable and does not need structural repair." },
+
+    { id:"refurb_ground", category:"refurbishment", label:"Ground floor",
+      description:"Kitchen, living and dining spaces reconfigured.",
+      price_low_ex_vat:35000, price_high_ex_vat:70000,
+      complete_low_uplift:15000, complete_high_uplift:35000,
+      duration_min_weeks:10, duration_max_weeks:16,
+      planning:"refurbishment", image:"", diagram:"refurb_ground",
+      active:true, display_order:2 },
+
+    { id:"refurb_upper", category:"refurbishment", label:"Bedrooms and bathrooms",
+      description:"Upper floors reworked and finished.",
+      price_low_ex_vat:30000, price_high_ex_vat:60000,
+      complete_low_uplift:12000, complete_high_uplift:28000,
+      duration_min_weeks:8, duration_max_weeks:14,
+      planning:"refurbishment", image:"", diagram:"refurb_upper",
+      active:true, display_order:3 },
+
+    { id:"refurb_rooms", category:"refurbishment", label:"Selected rooms",
+      description:"One or two rooms, such as a kitchen or a bathroom.",
+      price_low_ex_vat:15000, price_high_ex_vat:40000,
+      complete_low_uplift:8000, complete_high_uplift:20000,
+      duration_min_weeks:5, duration_max_weeks:10,
+      planning:"refurbishment", image:"", diagram:"refurb_rooms",
+      active:true, display_order:4 }
+  ]
+};
+
+/* ============================================================================
+   DIAGRAM LIBRARY
+   Existing construction = grey. Proposed work = BuildSpace coral.
+   Glazing = navy. One viewpoint per group (spec §5.2, §10.3).
+   Replace any diagram by setting `image` on the matching record in CONFIG.
+   ========================================================================== */
+var EX1="#E6EAF3", EX2="#DDE3EE", EX3="#D3DAE7", EXL="#B9C2D4", PLOT="#EFF2F8";
+var PR="#F4765B", PR2="#F79880", PR3="#D8563A", GL="#1E3970";
+
+function svgWrap(inner){
+  return '<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">'
+    + '<g stroke-linejoin="round" stroke-width="1.6">' + inner + '</g></svg>';
+}
+
+/* --- shared rear three-quarter house (loft + category group) ------------- */
+function loftScene(o){
+  o = o || {};
+  var endFace = o.endFace || (o.hideSlope
+    ? '<polygon points="118,104 128,46 70,76" fill="'+EX3+'" stroke="'+EXL+'"/>'
+    : '<polygon points="118,104 94,44 70,76" fill="'+EX3+'" stroke="'+EXL+'"/>');
+  var slope   = o.hideSlope ? '' : '<polygon points="118,104 268,104 244,44 94,44" fill="'+EX2+'" stroke="'+EXL+'"/>';
+  var outrigger = o.noOutrigger ? '' :
+      '<polygon points="118,128 154,150 154,194 118,172" fill="'+EX3+'" stroke="'+EXL+'"/>'
+    + '<polygon points="118,128 182,128 218,150 154,150" fill="'+EX2+'" stroke="'+EXL+'"/>'
+    + '<polygon points="154,150 218,150 218,194 154,194" fill="'+EX1+'" stroke="'+EXL+'"/>'
+    + '<rect x="172" y="162" width="28" height="24" rx="2" fill="'+GL+'" opacity=".82"/>';
+  return svgWrap(
+    '<line x1="30" y1="200" x2="300" y2="200" stroke="'+EXL+'" opacity=".6"/>' +
+    '<polygon points="118,104 70,76 70,144 118,172" fill="'+EX3+'" stroke="'+EXL+'"/>' +
+    '<polygon points="118,104 268,104 268,172 118,172" fill="'+EX1+'" stroke="'+EXL+'"/>' +
+    slope + endFace +
+    '<rect x="228" y="118" width="28" height="24" rx="2" fill="'+GL+'" opacity=".82"/>' +
+    (o.roofWork || '') + outrigger + (o.outriggerWork || '') + (o.groundWork || '')
+  );
+}
+
+/* proposed full-width rear box dormer */
+var DORMER =
+  '<polygon points="140,58 252,58 234,44 122,44" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+  '<polygon points="140,58 122,44 122,62 140,90" fill="'+PR3+'" stroke="'+PR3+'"/>' +
+  '<polygon points="140,58 252,58 252,98 140,98" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="152" y="68" width="40" height="22" rx="2" fill="'+GL+'" opacity=".9"/>' +
+  '<rect x="202" y="68" width="40" height="22" rx="2" fill="'+GL+'" opacity=".9"/>';
+
+/* proposed mansard with raised parapets */
+var MANSARD =
+  '<polygon points="136,32 248,32 256,46 128,46" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+  '<polygon points="118,104 268,104 256,46 128,46" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="146" y="62" width="36" height="28" rx="2" fill="'+GL+'" opacity=".9"/>' +
+  '<rect x="196" y="62" width="36" height="28" rx="2" fill="'+GL+'" opacity=".9"/>' +
+  '<polygon points="128,46 256,46 256,37 128,37" fill="'+PR3+'" stroke="'+PR3+'"/>' +
+  '<polygon points="128,46 143,46 143,29 128,29" fill="'+PR3+'" stroke="'+PR3+'"/>' +
+  '<polygon points="241,46 256,46 256,29 241,29" fill="'+PR3+'" stroke="'+PR3+'"/>';
+
+/* proposed gable replacing the hip; dashed line marks the former hip slope */
+var GABLE =
+  '<polygon points="118,104 94,44 70,76" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<line x1="94" y1="44" x2="74" y2="96" stroke="#FFFFFF" stroke-width="1.6" stroke-dasharray="5 4" opacity=".7"/>' +
+  '<rect x="89" y="76" width="17" height="16" rx="2" fill="'+GL+'" opacity=".85"/>';
+
+/* gable end where the rear roof is a mansard */
+var GABLE_M =
+  '<polygon points="118,104 126,44 70,76" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<line x1="126" y1="44" x2="78" y2="96" stroke="#FFFFFF" stroke-width="1.6" stroke-dasharray="5 4" opacity=".7"/>' +
+  '<rect x="92" y="74" width="17" height="16" rx="2" fill="'+GL+'" opacity=".85"/>';
+
+/* proposed dormer over the rear outrigger */
+var OUT_DORMER =
+  '<polygon points="162,130 208,130 196,120 150,120" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+  '<polygon points="162,130 208,130 208,150 162,150" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="172" y="134" width="26" height="12" rx="1.5" fill="'+GL+'" opacity=".9"/>';
+
+/* proposed mansard continuing over the rear outrigger */
+var OUT_MANSARD =
+  '<polygon points="118,116 182,116 214,136 150,136" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+  '<polygon points="150,136 214,136 214,132 150,132" fill="'+PR3+'"/>' +
+  '<polygon points="150,136 214,136 218,158 154,158" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="170" y="140" width="32" height="12" rx="1.5" fill="'+GL+'" opacity=".9"/>';
+
+/* proposed single-storey rear extension (used on category art) */
+var EXT_BOX =
+  '<polygon points="118,140 154,158 154,192 118,172" fill="'+PR3+'" stroke="'+PR3+'"/>' +
+  '<polygon points="118,140 252,140 288,158 154,158" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+  '<polygon points="154,158 288,158 288,192 154,192" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="168" y="164" width="46" height="24" rx="2" fill="'+GL+'" opacity=".9"/>' +
+  '<rect x="222" y="164" width="46" height="24" rx="2" fill="'+GL+'" opacity=".9"/>';
+
+/* --- shared top-down footprint plan (extension group) -------------------- */
+function planScene(proposed){
+  return svgWrap(
+    /* plot */
+    '<rect x="46" y="16" width="228" height="192" rx="4" fill="'+PLOT+'" stroke="'+EXL+'" stroke-dasharray="6 5"/>' +
+    /* existing house */
+    '<polygon points="62,26 258,26 258,112 146,112 146,178 62,178" fill="'+EX2+'" stroke="#8E9BB4" stroke-width="2"/>' +
+    /* internal walls */
+    '<line x1="62" y1="72" x2="258" y2="72" stroke="'+EXL+'"/>' +
+    '<line x1="146" y1="26" x2="146" y2="112" stroke="'+EXL+'"/>' +
+    '<line x1="62" y1="112" x2="146" y2="112" stroke="'+EXL+'"/>' +
+    /* front of house marker */
+    '<rect x="96" y="22" width="30" height="8" rx="2" fill="#8E9BB4"/>' +
+    (proposed || '')
+  );
+}
+var P_REAR  = '<polygon points="62,178 258,178 258,204 62,204" fill="'+PR+'" stroke="'+PR3+'" stroke-width="2"/>' +
+              '<rect x="118" y="197" width="84" height="7" rx="2" fill="'+GL+'" opacity=".9"/>';
+var P_SHORT = '<polygon points="146,150 258,150 258,178 146,178" fill="'+PR+'" stroke="'+PR3+'" stroke-width="2"/>' +
+              '<rect x="251" y="156" width="7" height="16" rx="2" fill="'+GL+'" opacity=".9"/>';
+var P_LONG  = '<polygon points="146,112 258,112 258,178 146,178" fill="'+PR+'" stroke="'+PR3+'" stroke-width="2"/>' +
+              '<rect x="251" y="126" width="7" height="38" rx="2" fill="'+GL+'" opacity=".9"/>';
+var P_WRAP  = '<polygon points="146,112 258,112 258,204 62,204 62,178 146,178" fill="'+PR+'" stroke="'+PR3+'" stroke-width="2"/>' +
+              '<rect x="251" y="126" width="7" height="40" rx="2" fill="'+GL+'" opacity=".9"/>' +
+              '<rect x="106" y="197" width="84" height="7" rx="2" fill="'+GL+'" opacity=".9"/>';
+
+/* --- combined: extension footprint with the loft marked above ------------ */
+var P_LOFT_OVER =
+  '<polygon points="62,26 258,26 258,112 146,112 146,178 62,178" fill="none" stroke="'+PR3+'" stroke-width="2" stroke-dasharray="7 5"/>' +
+  '<rect x="150" y="33" width="56" height="15" rx="3" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+  '<rect x="166" y="37" width="24" height="7" rx="1.5" fill="'+GL+'" opacity=".9"/>';
+
+var P_LOFT_OVER_M =
+  '<polygon points="62,26 258,26 258,112 146,112 146,178 62,178" fill="none" stroke="'+PR3+'" stroke-width="2.6"/>' +
+  '<rect x="146" y="30" width="64" height="20" rx="3" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="164" y="36" width="28" height="8" rx="1.5" fill="'+GL+'" opacity=".9"/>';
+
+/* --- refurbishment: cross-section of the house -------------------------- */
+function sectionScene(o){
+  o = o || {};
+  var roofF = o.roof   ? PR2 : EX3, roofS = o.roof   ? PR3 : EXL;
+  var upF   = o.upper  ? PR  : EX2, upS   = o.upper  ? PR3 : EXL;
+  var gnF   = o.ground ? PR  : EX2, gnS   = o.ground ? PR3 : EXL;
+  return svgWrap(
+    '<line x1="54" y1="178" x2="266" y2="178" stroke="'+EXL+'" opacity=".6"/>' +
+    '<polygon points="68,88 160,32 252,88" fill="'+roofF+'" stroke="'+roofS+'"/>' +
+    '<rect x="78" y="88" width="164" height="42" fill="'+upF+'" stroke="'+upS+'"/>' +
+    '<rect x="78" y="130" width="164" height="46" fill="'+gnF+'" stroke="'+gnS+'"/>' +
+    (o.rooms || '') +
+    '<line x1="160" y1="88" x2="160" y2="176" stroke="'+EXL+'" opacity=".7"/>' +
+    '<rect x="96" y="100" width="28" height="20" rx="2" fill="'+GL+'" opacity=".82"/>' +
+    '<rect x="180" y="100" width="28" height="20" rx="2" fill="'+GL+'" opacity=".82"/>' +
+    '<rect x="96" y="142" width="28" height="24" rx="2" fill="'+GL+'" opacity=".82"/>' +
+    '<rect x="180" y="142" width="28" height="24" rx="2" fill="'+GL+'" opacity=".82"/>'
+  );
+}
+var ROOMS_TWO =
+  '<rect x="82" y="134" width="74" height="38" fill="'+PR+'" stroke="'+PR3+'"/>' +
+  '<rect x="164" y="92" width="74" height="34" fill="'+PR+'" stroke="'+PR3+'"/>';
+
+/* --- not-sure cards ------------------------------------------------------ */
+function notSureLoft(){
+  return svgWrap(
+    '<polygon points="98,132 160,88 222,132 222,178 98,178" fill="'+EX2+'" stroke="'+EXL+'"/>' +
+    '<polygon points="98,132 160,88 222,132" fill="'+EX3+'" stroke="'+EXL+'"/>' +
+    '<path d="M150 118c0-8 5-13 11-13s12 5 12 11c0 9-11 9-11 17" fill="none" stroke="'+PR+'" stroke-width="6.5" stroke-linecap="round"/>' +
+    '<circle cx="161" cy="150" r="4.2" fill="'+PR+'"/>' +
+    '<polygon points="36,152 66,130 96,152 96,178 36,178" fill="'+EX2+'" stroke="'+EXL+'" opacity=".55"/>' +
+    '<polygon points="224,152 254,130 284,152 284,178 224,178" fill="'+EX2+'" stroke="'+EXL+'" opacity=".55"/>'
+  );
+}
+function miniPlan(x, prop){
+  return '<g transform="translate('+x+',-16)">'
+    + '<polygon points="0,116 62,116 62,158 30,158 30,186 0,186" fill="'+EX2+'" stroke="'+EXL+'"/>'
+    + prop + '</g>';
+}
+function notSureExt(){
+  return svgWrap(
+    '<path d="M148 62c0-10 7-17 16-17s16 7 16 15c0 11-14 11-14 22" fill="none" stroke="'+PR+'" stroke-width="8" stroke-linecap="round"/>' +
+    '<circle cx="166" cy="99" r="5" fill="'+PR+'"/>' +
+    miniPlan(30,  '<rect x="0" y="186" width="62" height="18" fill="'+PR+'" stroke="'+PR3+'"/>') +
+    miniPlan(128, '<rect x="30" y="130" width="32" height="28" fill="'+PR+'" stroke="'+PR3+'"/>') +
+    miniPlan(226, '<polygon points="30,130 62,130 62,204 0,204 0,186 30,186" fill="'+PR+'" stroke="'+PR3+'"/>')
+  );
+}
+
+function notSureCombined(){
+  return svgWrap(
+    '<polygon points="88,124 160,72 232,124 232,178 88,178" fill="'+EX2+'" stroke="'+EXL+'"/>' +
+    '<polygon points="88,124 160,72 232,124" fill="'+EX3+'" stroke="'+EXL+'"/>' +
+    '<rect x="232" y="146" width="56" height="32" fill="'+EX2+'" stroke="'+EXL+'" opacity=".7"/>' +
+    '<path d="M148 116c0-8 6-13 12-13s12 5 12 11c0 9-11 9-11 17" fill="none" stroke="'+PR+'" stroke-width="7" stroke-linecap="round"/>' +
+    '<circle cx="161" cy="148" r="4.5" fill="'+PR+'"/>'
+  );
+}
+function notSureRefurb(){
+  return svgWrap(
+    '<polygon points="68,88 160,32 252,88" fill="'+EX3+'" stroke="'+EXL+'"/>' +
+    '<rect x="78" y="88" width="164" height="42" fill="'+EX2+'" stroke="'+EXL+'"/>' +
+    '<rect x="78" y="130" width="164" height="46" fill="'+EX2+'" stroke="'+EXL+'"/>' +
+    '<path d="M148 112c0-8 6-13 12-13s12 5 12 11c0 9-11 9-11 17" fill="none" stroke="'+PR+'" stroke-width="7" stroke-linecap="round"/>' +
+    '<circle cx="161" cy="146" r="4.5" fill="'+PR+'"/>'
+  );
+}
+
+/* --- category card art (placeholders for the §10 photographs) ------------ */
+function catLoft(){ return loftScene({ roofWork: DORMER }); }
+function catExt(){  return loftScene({ noOutrigger:true, groundWork: EXT_BOX }); }
+function catBoth(){ return loftScene({ noOutrigger:true, roofWork: DORMER, groundWork: EXT_BOX }); }
+function catRefurb(){
+  return svgWrap(
+    '<polygon points="46,44 274,44 274,150 46,150" fill="'+EX1+'" stroke="'+EXL+'"/>' +
+    '<polygon points="46,150 274,150 274,190 46,190" fill="'+EX3+'" stroke="'+EXL+'"/>' +
+    '<rect x="66" y="66" width="76" height="52" rx="3" fill="'+GL+'" opacity=".82"/>' +
+    '<rect x="162" y="62" width="92" height="30" rx="3" fill="'+PR2+'" stroke="'+PR3+'"/>' +
+    '<rect x="162" y="108" width="92" height="42" rx="3" fill="'+PR+'" stroke="'+PR3+'"/>' +
+    '<line x1="208" y1="108" x2="208" y2="150" stroke="'+PR3+'"/>' +
+    '<polygon points="70,158 176,158 176,184 70,184" fill="'+PR+'" stroke="'+PR3+'"/>' +
+    '<circle cx="104" cy="52" r="4" fill="'+PR3+'"/><line x1="104" y1="44" x2="104" y2="52" stroke="'+PR3+'"/>' +
+    '<circle cx="132" cy="52" r="4" fill="'+PR3+'"/><line x1="132" y1="44" x2="132" y2="52" stroke="'+PR3+'"/>'
+  );
+}
+
+var DIAGRAMS = {
+  loft_rear_dormer:       function(){ return loftScene({ roofWork: DORMER }); },
+  loft_rear_mansard:      function(){ return loftScene({ hideSlope:true, roofWork: MANSARD }); },
+  loft_l_dormer:          function(){ return loftScene({ roofWork: DORMER, outriggerWork: OUT_DORMER }); },
+  loft_hip_gable_dormer:  function(){ return loftScene({ roofWork: DORMER, endFace: GABLE }); },
+  loft_l_mansard:         function(){ return loftScene({ hideSlope:true, roofWork: MANSARD, outriggerWork: OUT_MANSARD }); },
+  loft_hip_gable_mansard: function(){ return loftScene({ hideSlope:true, roofWork: MANSARD, endFace: GABLE_M }); },
+  ext_rear:               function(){ return planScene(P_REAR); },
+  ext_side_short:         function(){ return planScene(P_SHORT); },
+  ext_side_long:          function(){ return planScene(P_LONG); },
+  ext_wrap:               function(){ return planScene(P_WRAP); },
+  combined_rear:          function(){ return planScene(P_REAR + P_LOFT_OVER); },
+  combined_side:          function(){ return planScene(P_LONG + P_LOFT_OVER); },
+  combined_wrap:          function(){ return planScene(P_WRAP + P_LOFT_OVER); },
+  combined_mansard:       function(){ return planScene(P_REAR + P_LOFT_OVER_M); },
+  refurb_whole:           function(){ return sectionScene({roof:true, upper:true, ground:true}); },
+  refurb_ground:          function(){ return sectionScene({ground:true}); },
+  refurb_upper:           function(){ return sectionScene({upper:true}); },
+  refurb_rooms:           function(){ return sectionScene({rooms:ROOMS_TWO}); },
+  not_sure_combined:      notSureCombined,
+  not_sure_refurb:        notSureRefurb,
+  not_sure_refurbishment: notSureRefurb,
+  not_sure_loft:          notSureLoft,
+  not_sure_extension:     notSureExt,
+  cat_loft:               catLoft,
+  cat_extension:          catExt,
+  cat_combined:           catBoth,
+  cat_refurbishment:      catRefurb
+};
+</script>
+<script>
+/* ============================================================================
+   EXCLUSIONS (spec §1 and §6.4) — never present a range as all-in.
+   ========================================================================== */
+CONFIG.excludes = {
+  loft: {
+    construction: ["Sanitaryware and bathroom fit-out", "Decoration and floor finishes", "Bespoke glazing or joinery", "Professional and planning fees"],
+    complete:     ["Bespoke joinery beyond the agreed allowance", "Professional and planning fees", "Works outside the loft floor"]
+  },
+  combined: {
+    construction: ["New kitchen supply and fit", "Large format aluminium glazing", "Sanitaryware and bathroom fit-out", "Decoration and floor finishes", "Professional and planning fees"],
+    complete:     ["Bespoke joinery and glazing above the agreed allowance", "Professional and planning fees", "External landscaping and garden works"]
+  },
+  refurbishment: {
+    construction: ["Kitchen and sanitaryware supply", "Decoration and floor finishes", "Bespoke joinery", "Professional fees", "Structural repair, damp or roof works"],
+    complete:     ["Bespoke joinery above the agreed allowance", "Professional fees", "Structural repair, damp or roof works"]
+  },
+  extension: {
+    construction: ["New kitchen supply and fit", "Large format aluminium glazing", "Extensive alterations to the existing house", "Drainage diversions", "Professional fees and external landscaping"],
+    complete:     ["Glazing above the agreed allowance", "Professional and planning fees", "External landscaping and garden works"]
+  }
+};
+
+/* ============================================================================
+   HELPERS
+   ========================================================================== */
+var GBP = new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0});
+function money(n){ return GBP.format(n); }
+function moneyK(n){ return '\u00A3' + Math.round(n/1000) + 'k'; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function roundTo(n,step){ return Math.round(n/step)*step; }
+function el(id){ return document.getElementById(id); }
+
+var POSTCODE_RE = /^([A-Z]{1,2}\d[A-Z\d]?)\s*(\d[A-Z]{2})$/i;
+function normalisePostcode(v){
+  var m = String(v||'').trim().replace(/\s+/g,' ').match(POSTCODE_RE);
+  if(!m) return null;
+  return (m[1] + ' ' + m[2]).toUpperCase();
+}
+function outwardCode(pc){ return (pc||'').split(' ')[0]; }
+function areaLetters(pc){ var m = outwardCode(pc).match(/^[A-Z]+/); return m ? m[0] : ''; }
+function inServiceArea(pc){
+  if(!CONFIG.restrictToServiceArea) return true;
+  return CONFIG.serviceAreaPrefixes.indexOf(areaLetters(pc)) !== -1;
+}
+
+function track(name, data){
+  var payload = Object.assign({ event:name }, data||{});
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(payload);
+  if(typeof window.gtag === 'function'){ window.gtag('event', name, data||{}); }
+}
+
+function catById(id){
+  for(var i=0;i<CONFIG.categories.length;i++){ if(CONFIG.categories[i].id===id) return CONFIG.categories[i]; }
+  return null;
+}
+function isPriced(catId){
+  var c = catById(catId);
+  return !c || c.priced !== false;
+}
+function typesFor(cat){
+  return CONFIG.projectTypes
+    .filter(function(t){ return t.category===cat && t.active!==false; })
+    .sort(function(a,b){ return (a.display_order||0)-(b.display_order||0); });
+}
+function typeById(id){
+  for(var i=0;i<CONFIG.projectTypes.length;i++){ if(CONFIG.projectTypes[i].id===id) return CONFIG.projectTypes[i]; }
+  return null;
+}
+function scopeById(id){
+  for(var i=0;i<CONFIG.scopes.length;i++){ if(CONFIG.scopes[i].id===id) return CONFIG.scopes[i]; }
+  return null;
+}
+function art(record, diagramKey){
+  if(record && record.image){
+    return '<img src="'+esc(CONFIG.imageBase + record.image)+'" alt="'+esc(record.alt||record.label||'')+'" loading="lazy">';
+  }
+  var fn = DIAGRAMS[diagramKey];
+  return fn ? fn() : '';
+}
+
+/* ============================================================================
+   PRICING (spec §9.3 — one base record, scope, approved region, round, VAT)
+   ========================================================================== */
+/* Base range for one record. A record with `combines` resolves to the sum of
+   its two parts, adjusted by CONFIG.combinedAdjustment (spec §2.3: shared
+   preliminaries, access, programme and management are not additive). */
+function baseRange(type, scopeId){
+  if(type.combines){
+    var a = baseRange(typeById(type.combines[0]), scopeId);
+    var b = baseRange(typeById(type.combines[1]), scopeId);
+    return {
+      low:  (a.low  + b.low)  * CONFIG.combinedAdjustment.low,
+      high: (a.high + b.high) * CONFIG.combinedAdjustment.high
+    };
+  }
+  var low  = type.price_low_ex_vat  || 0;
+  var high = type.price_high_ex_vat || 0;
+  if(scopeId === 'complete'){
+    low  += (type.complete_low_uplift  || 0);
+    high += (type.complete_high_uplift || 0);
+  }
+  return { low: low, high: high };
+}
+
+/* Completion allowance shown on screen 3, resolved the same way. */
+function allowanceFor(type){
+  if(!type) return null;
+  if(type.combines){
+    var a = allowanceFor(typeById(type.combines[0]));
+    var b = allowanceFor(typeById(type.combines[1]));
+    if(!a || !b) return null;
+    return {
+      low:  roundTo((a.low  + b.low)  * CONFIG.combinedAdjustment.low,  CONFIG.roundToNearest),
+      high: roundTo((a.high + b.high) * CONFIG.combinedAdjustment.high, CONFIG.roundToNearest)
+    };
+  }
+  if(!type.complete_low_uplift) return null;
+  return { low: type.complete_low_uplift, high: type.complete_high_uplift };
+}
+
+function calculate(type, scopeId, postcode){
+  var r = baseRange(type, scopeId);
+  var low = r.low, high = r.high;
+
+  var adj = CONFIG.regionalAdjustments[outwardCode(postcode)]
+         || CONFIG.regionalAdjustments[areaLetters(postcode)];
+  if(adj){ low *= adj; high *= adj; }
+
+  low  = roundTo(low,  CONFIG.roundToNearest);
+  high = roundTo(high, CONFIG.roundToNearest);
+
+  return {
+    low: low,
+    high: high,
+    lowInc:  roundTo(low  * (1 + CONFIG.vatRate), CONFIG.roundToNearest),
+    highInc: roundTo(high * (1 + CONFIG.vatRate), CONFIG.roundToNearest)
+  };
+}
+
+/* ============================================================================
+   STATE
+   ========================================================================== */
+var params = new URLSearchParams(window.location.search);
+var S = {
+  postcode: normalisePostcode(params.get('postcode')) || '',
+  category: null,
+  typeId: null,
+  scope: null,
+  files: [],
+  leadStarted: false,
+  leadSent: false,
+  lastPrice: null,
+  screen: null,
+  stack: [],
+  source: {
+    page_url: window.location.href,
+    referrer: document.referrer || '',
+    utm_source:   params.get('utm_source')   || '',
+    utm_medium:   params.get('utm_medium')   || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_term:     params.get('utm_term')     || '',
+    utm_content:  params.get('utm_content')  || '',
+    gclid:        params.get('gclid')        || ''
+  }
+};
+
+/* ============================================================================
+   SCREENS
+   ========================================================================== */
+var MAIN = el('bsMain'), PROG = el('bsProg'), PROGLABEL = el('bsProgLabel');
+
+function setProgress(step){
+  if(!step){ PROG.hidden = true; return; }
+  PROG.hidden = false;
+  [].forEach.call(PROG.querySelectorAll('.bs-prog-step'), function(n){
+    var i = +n.getAttribute('data-step');
+    n.classList.toggle('done', i < step);
+    n.classList.toggle('active', i === step);
+  });
+  PROGLABEL.textContent = 'Step ' + step + ' of 3';
+}
+
+function go(screen, push){
+  if(push !== false && S.screen && S.screen !== screen) S.stack.push(S.screen);
+  S.screen = screen;
+  render();
+  if(MAIN.scrollIntoView) MAIN.scrollIntoView({block:'start', behavior:'smooth'});
+}
+function back(){
+  var prev = S.stack.pop();
+  if(!prev){ return; }
+  if(prev === 'types' && !S.category) prev = 'category';
+  S.screen = prev;
+  render();
+}
+function restart(){
+  S.category = null; S.typeId = null; S.scope = null; S.files = [];
+  S.leadSent = false; S.leadStarted = false; S.lastPrice = null;
+  S.stack = []; S.screen = S.postcode ? 'category' : 'postcode';
+  render();
+}
+
+function navRow(extra){
+  return '<div class="bs-nav">'
+    + (S.stack.length ? '<button type="button" class="bs-btn ghost" data-act="back">Back</button>' : '')
+    + '<div class="bs-spacer"></div>'
+    + (extra || '')
+    + '<button type="button" class="bs-link" data-act="restart">Start again</button>'
+    + '</div>';
+}
+
+/* ---- 0. postcode -------------------------------------------------------- */
+function screenPostcode(){
+  setProgress(0);
+  return '<section class="bs-screen">'
+    + '<h1 class="bs-q">See what your project <em>could cost</em></h1>'
+    + '<p class="bs-sub">Enter your postcode and choose the type of space you want to create. No measurements needed.</p>'
+    + '<div class="bs-postcode-wrap">'
+    +   '<div class="bs-field">'
+    +     '<label class="bs-label" for="pcIn">Postcode</label>'
+    +     '<input class="bs-input" id="pcIn" name="postcode" type="text" autocomplete="postal-code" placeholder="Enter postcode" value="'+esc(S.postcode)+'" aria-describedby="pcErr">'
+    +     '<p class="bs-err" id="pcErr"></p>'
+    +   '</div>'
+    +   '<button type="button" class="bs-btn full" data-act="pc-go">Get my cost guide</button>'
+    +   '<p class="bs-small">Indicative estimate only. Final pricing depends on the property, design, access and specification.</p>'
+    + '</div>'
+    + '</section>';
+}
+
+/* ---- 1. category -------------------------------------------------------- */
+function screenCategory(){
+  setProgress(1);
+  var cards = CONFIG.categories.map(function(c){
+    return '<button type="button" class="bs-card" role="radio" aria-checked="'+(S.category===c.id)+'" data-act="cat" data-id="'+c.id+'">'
+      + '<span class="bs-tick" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.2 4.4 9 10.5 2.6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      + '<span class="bs-card-fig">'+art(c, 'cat_'+c.id)+'</span>'
+      + '<span class="bs-card-body">'
+      +   '<span class="bs-card-label">'+esc(c.label)+'</span>'
+      +   '<span class="bs-card-desc">'+esc(c.desc)+'</span>'
+      + '</span></button>';
+  }).join('');
+  return '<section class="bs-screen">'
+    + '<h1 class="bs-q">What are you <em>planning?</em></h1>'
+    + '<p class="bs-sub">Choose the option that best matches your project.</p>'
+    + '<div class="bs-grid cols-2" role="radiogroup" aria-label="Project category">'+cards+'</div>'
+    + navRow()
+    + '</section>';
+}
+
+/* ---- 2. project type (all four categories) ------------------------------ */
+function screenTypes(){
+  setProgress(2);
+  var copy = CONFIG.typeQuestion[S.category] || CONFIG.typeQuestion.loft;
+  var list = typesFor(S.category);
+
+  var cards = list.map(function(t){
+    var br = baseRange(t, 'construction');
+    var pill = '<span class="bs-card-price">Typical budget '+moneyK(roundTo(br.low, CONFIG.roundToNearest))
+      +' to '+moneyK(roundTo(br.high, CONFIG.roundToNearest))+' plus VAT</span>';
+    return '<button type="button" class="bs-card" role="radio" aria-checked="'+(S.typeId===t.id)+'" data-act="type" data-id="'+t.id+'">'
+      + '<span class="bs-tick" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.2 4.4 9 10.5 2.6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      + '<span class="bs-card-fig">'+art(t, t.diagram)+'</span>'
+      + '<span class="bs-card-body">'
+      +   '<span class="bs-card-label">'+esc(t.label)+'</span>'
+      +   '<span class="bs-card-desc">'+esc(t.description)+'</span>'
+      +   pill
+      + '</span></button>';
+  }).join('');
+
+  /* Priced categories get the separate Not sure route (spec §5, §6).
+     The other two carry their own "Not sure yet" record in the list. */
+  var notSure = '<button type="button" class="bs-card" role="radio" aria-checked="false" data-act="notsure">'
+      + '<span class="bs-card-fig">'+((DIAGRAMS['not_sure_'+S.category]||DIAGRAMS.not_sure_loft)())+'</span>'
+      + '<span class="bs-card-body">'
+      +   '<span class="bs-card-label">Not sure</span>'
+      +   '<span class="bs-card-desc">'+esc(CONFIG.notSureDesc[S.category] || 'Show us the property and we will identify the right option.')+'</span>'
+      +   '<span class="bs-card-price neutral">We will help identify the right option</span>'
+      + '</span></button>';
+
+  return '<section class="bs-screen">'
+    + '<h1 class="bs-q">'+copy.q+'</h1>'
+    + '<p class="bs-sub">'+esc(copy.sub)+'</p>'
+    + '<div class="bs-grid cols-3" role="radiogroup" aria-label="Project type">'+cards+notSure+'</div>'
+    + '<div class="bs-legend" aria-hidden="true">'
+    +   '<span><i class="ex"></i>Existing house</span>'
+    +   '<span><i class="pr"></i>Proposed work</span>'
+    +   '<span><i class="gl"></i>Glazing</span>'
+    + '</div>'
+    + navRow()
+    + '</section>';
+}
+
+/* ---- 3. scope ----------------------------------------------------------- */
+function screenScope(){
+  setProgress(3);
+  var t = typeById(S.typeId);
+  var icons = {
+    construction:'<svg viewBox="0 0 32 32" fill="none"><path d="M4 26h24M7 26V14l9-7 9 7v12" stroke="#1E3970" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 26v-7h6v7" stroke="#F4765B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    complete:'<svg viewBox="0 0 32 32" fill="none"><path d="M4 26h24M7 26V14l9-7 9 7v12" stroke="#1E3970" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="17" width="8" height="9" rx="1.5" fill="#F4765B"/><circle cx="22" cy="21" r="1.6" fill="#F4765B"/></svg>'
+  };
+  var cards = CONFIG.scopes.map(function(s){
+    var up = '';
+    if(s.id==='complete'){
+      var a = allowanceFor(t);
+      if(a) up = '<span class="bs-card-price">Adds '+moneyK(a.low)+' to '+moneyK(a.high)+' plus VAT</span>';
+    } else {
+      up = '<span class="bs-card-price neutral">Base budget for '+esc(t.label.toLowerCase())+'</span>';
+    }
+    return '<button type="button" class="bs-card" role="radio" aria-checked="'+(S.scope===s.id)+'" data-act="scope" data-id="'+s.id+'">'
+      + '<span class="bs-tick" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.2 4.4 9 10.5 2.6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      + '<span class="bs-scope-icon" aria-hidden="true">'+icons[s.id]+'</span>'
+      + '<span class="bs-scope-body">'
+      +   '<span class="bs-card-label">'+esc(s.label)+'</span>'
+      +   '<span class="bs-card-desc">'+esc(s.desc)+'</span>'
+      +   up
+      + '</span></button>';
+  }).join('');
+
+  return '<section class="bs-screen">'
+    + '<h1 class="bs-q">How complete should the <em>estimate be?</em></h1>'
+    + '<p class="bs-sub">Both options cover the same build. The difference is how much of the internal finish is included in the figure.</p>'
+    + '<div class="bs-scope" role="radiogroup" aria-label="Scope of estimate">'+cards+'</div>'
+    + navRow()
+    + '</section>';
+}
+</script>
+<script>
+/* ---- lead form (shared by result + tailored routes) --------------------- */
+function leadForm(opts){
+  opts = opts || {};
+  return '<div class="bs-form-card" id="bsForm">'
+    + '<h3>'+(opts.heading || 'Get this estimate <em>checked</em>')+'</h3>'
+    + '<p class="bs-note" style="margin-bottom:18px">'+(opts.sub || 'Send your details and we will review the property and confirm a realistic budget. No obligation.')+'</p>'
+    + '<div class="bs-formerr" id="formErr" role="alert"></div>'
+    + '<div class="bs-field">'
+    +   '<label class="bs-label" for="fName">Full name</label>'
+    +   '<input class="bs-input" id="fName" name="name" type="text" autocomplete="name" placeholder="Your name">'
+    +   '<p class="bs-err" id="eName">Please enter your name.</p>'
+    + '</div>'
+    + '<div class="bs-row">'
+    +   '<div class="bs-field">'
+    +     '<label class="bs-label" for="fPhone">Phone</label>'
+    +     '<input class="bs-input" id="fPhone" name="phone" type="tel" autocomplete="tel" placeholder="07000 000000">'
+    +   '</div>'
+    +   '<div class="bs-field">'
+    +     '<label class="bs-label" for="fEmail">Email</label>'
+    +     '<input class="bs-input" id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com">'
+    +   '</div>'
+    + '</div>'
+    + '<p class="bs-err" id="eContact" style="margin-top:-8px;margin-bottom:14px">Please give a phone number or an email address.</p>'
+    + '<div class="bs-row">'
+    +   '<div class="bs-field">'
+    +     '<label class="bs-label" for="fPostcode">Postcode</label>'
+    +     '<input class="bs-input" id="fPostcode" name="postcode" type="text" autocomplete="postal-code" value="'+esc(S.postcode)+'" placeholder="Enter postcode">'
+    +     '<p class="bs-err" id="ePostcode">Please enter a valid UK postcode.</p>'
+    +   '</div>'
+    +   '<div class="bs-field">'
+    +     '<label class="bs-label" for="fStart">Desired start</label>'
+    +     '<select class="bs-select" id="fStart" name="start">'
+    +       '<option value="">Please choose</option>'
+    +       '<option value="now">Now</option>'
+    +       '<option value="3m">Within 3 months</option>'
+    +       '<option value="6m">Within 6 months</option>'
+    +       '<option value="research">Researching</option>'
+    +     '</select>'
+    +     '<p class="bs-err" id="eStart">Please choose a timescale.</p>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="bs-field">'
+    +   '<label class="bs-label" for="fNotes">Project notes <span class="opt">(optional)</span></label>'
+    +   '<textarea class="bs-textarea" id="fNotes" name="notes" placeholder="Anything that would help — access, previous extensions, rough timescale."></textarea>'
+    + '</div>'
+    + '<div class="bs-field" id="photoField">'
+    +   '<label class="bs-label" for="fFiles">Photographs <span class="opt">(optional, up to 5)</span></label>'
+    +   '<label class="bs-drop" for="fFiles">'
+    +     '<input id="fFiles" name="photos" type="file" accept=".jpg,.jpeg,.png,.heic,image/jpeg,image/png,image/heic" multiple>'
+    +     '<span class="bs-drop-t">Add photos of the property</span>'
+    +     '<span class="bs-drop-s">JPG, PNG or HEIC. Rear elevation and interior help most.</span>'
+    +   '</label>'
+    +   '<ul class="bs-files" id="fileList"></ul>'
+    +   '<p class="bs-err" id="eFiles"></p>'
+    + '</div>'
+    + '<div class="bs-field">'
+    +   '<label class="bs-consent"><input type="checkbox" id="fConsent"><span>Yes, I would like occasional updates from BuildSpace. This is separate from my enquiry.</span></label>'
+    + '</div>'
+    + '<button type="button" class="bs-btn full" id="fSubmit" data-act="submit">'+(opts.cta || 'Get this estimate checked')+'</button>'
+    + '<p class="bs-privacy">By sending this enquiry you agree to us contacting you about it. See our <a href="'+esc(CONFIG.privacyUrl)+'">privacy notice</a>.</p>'
+    + '</div>';
+}
+
+/* ---- 4. conversion: contact details (spec §2 stage table) --------------- */
+function screenConversion(){
+  setProgress(0);
+  var t = typeById(S.typeId);
+  var sc = scopeById(S.scope);
+  return '<section class="bs-screen">'
+    + '<h1 class="bs-q">Get the estimate <em>checked</em></h1>'
+    + '<p class="bs-sub">Your cost guide is ready. Add your details so a member of the team can review the property alongside it, and we will show the figures on the next screen.</p>'
+    + '<div class="bs-summary">'
+    +   '<div class="bs-summary-fig">'+art(t, t.diagram)+'</div>'
+    +   '<div class="bs-summary-body">'
+    +     '<div class="bs-summary-label">'+esc(t.label)+'</div>'
+    +     '<div class="bs-summary-meta">'+esc(sc.label)+(S.postcode?' &middot; '+esc(S.postcode):'')+'</div>'
+    +   '</div>'
+    +   '<button type="button" class="bs-link" data-act="back">Change</button>'
+    + '</div>'
+    + leadForm({
+        heading:'Your details',
+        sub:'We use these to review the property and confirm a realistic budget. No obligation.',
+        cta:'See my cost guide'
+      })
+    + navRow()
+    + '</section>';
+}
+
+/* ---- 4. result ---------------------------------------------------------- */
+function screenResult(){
+  setProgress(0);
+  var t = typeById(S.typeId);
+  var sc = scopeById(S.scope);
+  var p = calculate(t, S.scope, S.postcode);
+  S.lastPrice = p;
+
+  var movers = (CONFIG.movers[S.category] || []).slice(0,5)
+    .map(function(m){ return '<li>'+esc(m)+'</li>'; }).join('');
+  var includes = sc.includes.map(function(i){ return '<li>'+esc(i)+'</li>'; }).join('');
+  var exList = ((CONFIG.excludes[S.category]||{})[S.scope]||[])
+    .map(function(i){ return '<li>'+esc(i)+'</li>'; }).join('');
+
+  return '<section class="bs-screen">'
+    + '<h1 class="bs-q">Your initial <em>cost guide</em></h1>'
+    + '<p class="bs-sub">'+esc(t.label)+' with a '+esc(sc.short.toLowerCase())+(S.postcode?' in '+esc(S.postcode):'')+'.</p>'
+
+    /* 1 image + name, 2 ex VAT, 3 inc VAT */
+    + '<div class="bs-result-hero">'
+    +   '<div class="bs-hero-fig">'+art(t, t.diagram)+'</div>'
+    +   '<div class="bs-hero-body">'
+    +     '<div class="bs-hero-eyebrow">Estimated construction budget for a <strong>'+esc(t.label.toLowerCase())+'</strong></div>'
+    +     '<div class="bs-price-main">'+money(p.low)+' to '+money(p.high)+' <span class="vat">plus VAT</span></div>'
+    +     '<div class="bs-price-inc">Approximately '+money(p.lowInc)+' to '+money(p.highInc)
+    +       '<span class="vat">including VAT at '+Math.round(CONFIG.vatRate*100)+' per cent</span></div>'
+    +     '<div class="bs-stats">'
+    +       '<div class="bs-stat"><div class="bs-stat-label">Duration</div><div class="bs-stat-value">'+t.duration_min_weeks+'\u2013'+t.duration_max_weeks+' wks</div></div>'
+    +       '<div class="bs-stat"><div class="bs-stat-label">Planning</div><div class="bs-stat-value">'+esc(CONFIG.planningShort[t.planning]||'Property-specific')+'</div></div>'
+    +       '<div class="bs-stat"><div class="bs-stat-label">Scope</div><div class="bs-stat-value">'+esc(sc.short)+'</div></div>'
+    +     '</div>'
+    +     '<p class="bs-qual">This is an indicative range, not a quotation. We will confirm the price after reviewing the property, design, access and specification.</p>'
+    +   '</div>'
+    + '</div>'
+
+    /* 4 scope and inclusions */
+    + '<div class="bs-two">'
+    +   '<div class="bs-block tint"><h3>'+esc(sc.label)+' includes</h3><ul class="bs-list check">'+includes+'</ul>'
+    +     (t.combines ? '<p class="bs-note" style="margin-top:12px">'+esc(CONFIG.combinedNote)+'</p>' : '')
+    +     (t.note ? '<p class="bs-note" style="margin-top:12px">'+esc(t.note)+'</p>' : '')
+    +   '</div>'
+    +   '<div class="bs-block"><h3>Not included in this figure</h3><ul class="bs-list">'+exList+'</ul>'
+    +     '<p class="bs-note" style="margin-top:12px">These items can move the total well beyond the range above.</p>'
+    +   '</div>'
+    + '</div>'
+
+    /* 5 price movers */
+    + '<div class="bs-block coral"><h3>What could change the price</h3><ul class="bs-list">'+movers+'</ul></div>'
+
+    /* 6 duration */
+    + '<div class="bs-block"><h3>Provisional construction duration</h3>'
+    +   '<p class="bs-note"><strong style="color:var(--navy);font-size:15px">'+t.duration_min_weeks+' to '+t.duration_max_weeks+' weeks</strong> on site once the design is agreed and approvals are in place. Provisional and confirmed after survey.</p>'
+    + '</div>'
+
+    /* 7 planning */
+    + '<div class="bs-block"><h3>Planning route</h3><p class="bs-note">'+esc(CONFIG.planningText[t.planning])+'</p></div>'
+
+    /* 8 lead capture, or confirmation when details were taken first */
+    + (S.leadSent
+        ? '<div class="bs-block coral" style="text-align:center">'
+          + '<div class="bs-icon-lg ok" style="width:52px;height:52px;margin-bottom:14px"><svg viewBox="0 0 28 28" fill="none"><path d="M6 14.6 11.4 20 22 8.6" stroke="#1FA971" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+          + '<h3>Your details are with the team</h3>'
+          + '<p class="bs-note" style="max-width:46ch;margin:0 auto">We will review this cost guide against the property'
+          + (S.files.length ? ' and the ' + S.files.length + ' photograph' + (S.files.length>1?'s':'') + ' you sent' : '')
+          + ', and come back to you — usually within one working day.</p>'
+          + '</div>'
+        : leadForm())
+    + '<div class="bs-nav">'
+    +   '<button type="button" class="bs-btn ghost" data-act="back">Back</button>'
+    +   (S.leadSent ? '' : '<button type="button" class="bs-link" data-act="photos">Send project photos</button>')
+    +   '<div class="bs-spacer"></div>'
+    +   '<button type="button" class="bs-link" data-act="restart">Start again</button>'
+    + '</div>'
+    + '</section>';
+}
+
+/* ---- tailored route (combined, refurbishment, not sure) ----------------- */
+function screenTailored(){
+  setProgress(0);
+  var msg = S.tailoredReason === 'notsure' ? CONFIG.notSureMessage : CONFIG.tailoredMessage;
+  var heading = S.tailoredReason === 'notsure' ? 'We will identify the <em>right option</em>' : 'This one needs a <em>tailored budget</em>';
+  var t = S.typeId ? typeById(S.typeId) : null;
+  var sc = S.scope ? scopeById(S.scope) : null;
+  var summary = (t && sc)
+    ? '<div class="bs-summary">'
+      + '<div class="bs-summary-fig">'+art(t, t.diagram)+'</div>'
+      + '<div class="bs-summary-body">'
+      +   '<div class="bs-summary-label">'+esc(t.label)+'</div>'
+      +   '<div class="bs-summary-meta">'+esc(sc.label)+(S.postcode?' &middot; '+esc(S.postcode):'')+'</div>'
+      + '</div>'
+      + '<button type="button" class="bs-link" data-act="back">Change</button>'
+      + '</div>'
+    : '';
+  return '<section class="bs-screen">'
+    + '<div class="bs-center" style="padding-bottom:8px">'
+    +   '<div class="bs-icon-lg"><svg viewBox="0 0 28 28" fill="none"><path d="M14 3.5 24.5 9v10L14 24.5 3.5 19V9L14 3.5Z" stroke="#F4765B" stroke-width="2" stroke-linejoin="round"/><path d="M14 12v6" stroke="#F4765B" stroke-width="2.4" stroke-linecap="round"/><circle cx="14" cy="8.6" r="1.4" fill="#F4765B"/></svg></div>'
+    +   '<h1 class="bs-q">'+heading+'</h1>'
+    +   '<p class="bs-sub" style="margin:0 auto 4px">'+esc(msg)+'</p>'
+    + '</div>'
+    + summary
+    + leadForm({ heading:'Book a short call', sub:'Send your details and we will come back with an initial budget after a short call.', cta:'Request a call back' })
+    + navRow()
+    + '</section>';
+}
+
+/* ---- outside service area ---------------------------------------------- */
+function screenOutside(){
+  setProgress(0);
+  return '<section class="bs-screen"><div class="bs-center">'
+    + '<div class="bs-icon-lg"><svg viewBox="0 0 28 28" fill="none"><path d="M14 25s8.5-7.3 8.5-13a8.5 8.5 0 0 0-17 0c0 5.7 8.5 13 8.5 13Z" stroke="#F4765B" stroke-width="2" stroke-linejoin="round"/><circle cx="14" cy="11.8" r="3" stroke="#F4765B" stroke-width="2"/></svg></div>'
+    + '<h1 class="bs-q">We may be <em>outside your area</em></h1>'
+    + '<p class="bs-sub" style="margin:0 auto 20px">'+esc(S.postcode)+' sits outside the areas we normally build in, so an online range would not be reliable. Send us a few details and we will tell you honestly whether we can help.</p>'
+    + '</div>'
+    + leadForm({ heading:'Send an <em>enquiry</em>', sub:'We will confirm whether we cover your area and what we can suggest if not.', cta:'Send enquiry' })
+    + navRow()
+    + '</section>';
+}
+
+/* ---- success ------------------------------------------------------------ */
+function screenSuccess(){
+  setProgress(0);
+  return '<section class="bs-screen"><div class="bs-center">'
+    + '<div class="bs-icon-lg ok"><svg viewBox="0 0 28 28" fill="none"><path d="M6 14.6 11.4 20 22 8.6" stroke="#1FA971" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+    + '<h1 class="bs-q">Thanks — that has <em>reached us</em></h1>'
+    + '<p class="bs-sub" style="margin:0 auto 22px">We have your details'+(S.postcode?' for '+esc(S.postcode):'')+'. A member of the team will review what you have sent and come back to you, usually within one working day.</p>'
+    + (CONFIG.phone ? '<p class="bs-note" style="margin-bottom:18px">Need us sooner? Call <a href="tel:'+esc(CONFIG.phone.replace(/\s/g,''))+'" style="color:var(--coral);font-weight:600">'+esc(CONFIG.phone)+'</a>.</p>' : '')
+    + '<button type="button" class="bs-btn ghost" data-act="restart">Price another project</button>'
+    + '</div></section>';
+}
+
+/* ============================================================================
+   RENDER
+   ========================================================================== */
+function render(){
+  var html = '';
+  switch(S.screen){
+    case 'postcode': html = screenPostcode(); break;
+    case 'category': html = screenCategory(); break;
+    case 'types':    html = screenTypes();    break;
+    case 'scope':      html = screenScope();      break;
+    case 'conversion': html = screenConversion(); break;
+    case 'result':   html = screenResult();   break;
+    case 'tailored': html = screenTailored(); break;
+    case 'outside':  html = screenOutside();  break;
+    case 'success':  html = screenSuccess();  break;
+    default:         html = screenPostcode();
+  }
+  MAIN.innerHTML = html;
+  if(S.screen === 'result') track('estimate_viewed', estimatePayload());
+  var focusTarget = MAIN.querySelector('h1');
+  if(focusTarget){ focusTarget.setAttribute('tabindex','-1'); }
+}
+
+function estimatePayload(){
+  var t = S.typeId ? typeById(S.typeId) : null;
+  var p = S.lastPrice || {};
+  return {
+    postcode: S.postcode,
+    category: S.category,
+    project_type: t ? t.label : '',
+    project_type_id: S.typeId || '',
+    scope: S.scope || '',
+    estimate_low_ex_vat: p.low || '',
+    estimate_high_ex_vat: p.high || '',
+    estimate_low_inc_vat: p.lowInc || '',
+    estimate_high_inc_vat: p.highInc || ''
+  };
+}
+
+/* ============================================================================
+   EVENTS
+   ========================================================================== */
+document.addEventListener('click', function(e){
+  var btn = e.target.closest('[data-act]');
+  if(!btn) return;
+  var act = btn.getAttribute('data-act');
+
+  if(act === 'pc-go'){
+    var input = el('pcIn'), errBox = el('pcErr');
+    var pc = normalisePostcode(input.value);
+    if(!pc){
+      input.classList.add('err');
+      errBox.textContent = 'Please enter a valid UK postcode, for example E14 9GE.';
+      errBox.classList.add('on'); input.focus(); return;
+    }
+    input.classList.remove('err'); errBox.classList.remove('on');
+    S.postcode = pc;
+    if(!inServiceArea(pc)){ track('estimator_outside_area',{postcode:pc}); go('outside'); return; }
+    track('estimator_started', {postcode:pc});
+    go('category');
+    return;
+  }
+
+  if(act === 'cat'){
+    var id = btn.getAttribute('data-id');
+    S.category = id; S.typeId = null; S.scope = null;
+    markChecked(btn);
+    S.tailoredReason = null;
+    track('category_selected', {category:id});
+    setTimeout(function(){ go('types'); }, 180);
+    return;
+  }
+
+  if(act === 'type'){
+    S.typeId = btn.getAttribute('data-id');
+    markChecked(btn);
+    track('type_selected', {category:S.category, project_type:S.typeId});
+    setTimeout(function(){ go('scope'); }, 180);
+    return;
+  }
+
+  if(act === 'notsure'){
+    S.typeId = null; S.tailoredReason = 'notsure';
+    track('type_selected', {category:S.category, project_type:'not_sure'});
+    setTimeout(function(){ go('tailored'); }, 120);
+    return;
+  }
+
+  if(act === 'scope'){
+    S.scope = btn.getAttribute('data-id');
+    markChecked(btn);
+    track('scope_selected', {scope:S.scope});
+    setTimeout(function(){
+      go(CONFIG.journey === 'conversion_first' ? 'conversion' : 'result');
+    }, 180);
+    return;
+  }
+
+  if(act === 'back'){ back(); return; }
+  if(act === 'restart'){ restart(); return; }
+  if(act === 'photos'){
+    var f = el('photoField');
+    if(f){ f.scrollIntoView({behavior:'smooth', block:'center'}); el('fFiles').focus(); }
+    return;
+  }
+  if(act === 'submit'){ submitLead(btn); return; }
+});
+
+function markChecked(btn){
+  var group = btn.closest('[role="radiogroup"]');
+  if(!group) return;
+  [].forEach.call(group.querySelectorAll('[role="radio"]'), function(n){ n.setAttribute('aria-checked','false'); });
+  btn.setAttribute('aria-checked','true');
+}
+
+/* enter key on the postcode field */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && e.target && e.target.id === 'pcIn'){
+    e.preventDefault();
+    var go = document.querySelector('[data-act="pc-go"]'); if(go) go.click();
+  }
+});
+
+/* lead_started fires once, on first use of a contact field */
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(!t || !t.id) return;
+  if(['fName','fPhone','fEmail','fNotes'].indexOf(t.id) === -1) return;
+  if(S.leadStarted) return;
+  S.leadStarted = true;
+  track('lead_started', estimatePayload());
+});
+
+/* photograph handling: max 5, JPG / PNG / HEIC only */
+document.addEventListener('change', function(e){
+  if(!e.target || e.target.id !== 'fFiles') return;
+  var okExt = /\.(jpe?g|png|heic|heif)$/i;
+  var incoming = [].slice.call(e.target.files || []);
+  var rejected = 0;
+  incoming.forEach(function(f){
+    if(!okExt.test(f.name)){ rejected++; return; }
+    if(S.files.length >= 5){ rejected++; return; }
+    S.files.push(f);
+  });
+  e.target.value = '';
+  var err = el('eFiles');
+  if(rejected){
+    err.textContent = S.files.length >= 5
+      ? 'You can send up to five photographs.'
+      : 'Only JPG, PNG or HEIC files can be sent.';
+    err.classList.add('on');
+  } else { err.classList.remove('on'); }
+  renderFiles();
+  if(S.files.length) track('photo_uploaded', {count:S.files.length});
+});
+
+function renderFiles(){
+  var list = el('fileList'); if(!list) return;
+  list.innerHTML = S.files.map(function(f,i){
+    return '<li><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(f.name)+'</span>'
+      + '<button type="button" data-remove="'+i+'" aria-label="Remove '+esc(f.name)+'">Remove</button></li>';
+  }).join('');
+}
+document.addEventListener('click', function(e){
+  var r = e.target.closest('[data-remove]'); if(!r) return;
+  S.files.splice(+r.getAttribute('data-remove'), 1);
+  renderFiles();
+});
+
+/* ============================================================================
+   LEAD SUBMISSION (spec §8.4, §11.3, §12.2)
+   ========================================================================== */
+function showErr(id, on, msg){
+  var n = el(id); if(!n) return;
+  if(msg) n.textContent = msg;
+  n.classList.toggle('on', !!on);
+}
+function submitLead(btn){
+  var name = el('fName').value.trim();
+  var phone = el('fPhone').value.trim();
+  var email = el('fEmail').value.trim();
+  var pcRaw = el('fPostcode').value;
+  var start = el('fStart').value;
+  var notes = el('fNotes').value.trim();
+  var consent = el('fConsent').checked;
+  var pc = normalisePostcode(pcRaw);
+
+  var ok = true;
+  showErr('eName', !name); el('fName').classList.toggle('err', !name); if(!name) ok = false;
+  var hasContact = !!(phone || email);
+  var emailOk = !email || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+  showErr('eContact', !hasContact || !emailOk, !hasContact
+    ? 'Please give a phone number or an email address.'
+    : 'Please check the email address.');
+  el('fEmail').classList.toggle('err', !emailOk);
+  if(!hasContact || !emailOk) ok = false;
+  showErr('ePostcode', !pc); el('fPostcode').classList.toggle('err', !pc); if(!pc) ok = false;
+  showErr('eStart', !start); el('fStart').classList.toggle('err', !start); if(!start) ok = false;
+
+  if(!ok){
+    var firstErr = document.querySelector('.bs-err.on');
+    if(firstErr) firstErr.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  S.postcode = pc;
+  var startLabels = {now:'Now', '3m':'Within 3 months', '6m':'Within 6 months', research:'Researching'};
+  var t = S.typeId ? typeById(S.typeId) : null;
+  var sc = S.scope ? scopeById(S.scope) : null;
+  if(t && S.scope) S.lastPrice = calculate(t, S.scope, pc);
+  var p = S.lastPrice || {};
+
+  var payload = {
+    name: name, phone: phone, email: email, postcode: pc,
+    desired_start: startLabels[start] || start,
+    notes: notes,
+    marketing_consent: consent ? 'yes' : 'no',
+    route: S.screen,
+    category: S.category || '',
+    project_type: t ? t.label : (S.tailoredReason === 'notsure' ? 'Not sure' : 'Tailored project'),
+    project_type_id: S.typeId || '',
+    scope: sc ? sc.label : '',
+    estimate_low_ex_vat: p.low || '',
+    estimate_high_ex_vat: p.high || '',
+    estimate_low_inc_vat: p.lowInc || '',
+    estimate_high_inc_vat: p.highInc || '',
+    vat_rate: CONFIG.vatRate,
+    duration_weeks: (t && t.duration_min_weeks) ? (t.duration_min_weeks + '-' + t.duration_max_weeks) : '',
+    photo_count: S.files.length,
+    timestamp: new Date().toISOString(),
+    page_url: S.source.page_url,
+    referrer: S.source.referrer,
+    utm_source: S.source.utm_source, utm_medium: S.source.utm_medium,
+    utm_campaign: S.source.utm_campaign, utm_term: S.source.utm_term,
+    utm_content: S.source.utm_content, gclid: S.source.gclid,
+    /* fields read by the FormSubmit relay to shape the email it sends */
+    _subject: CONFIG.leadSubject + ' \u2014 ' + (t ? t.label : (sc ? sc.label : 'Tailored project'))
+              + (pc ? ' \u2014 ' + pc : ''),
+    _replyto: email || '',
+    _template: 'table',
+    _captcha: 'false'
+  };
+
+  var errBox = el('formErr');
+  errBox.classList.remove('on');
+  btn.disabled = true;
+  var label = btn.textContent;
+  btn.textContent = 'Sending…';
+
+  send(payload).then(function(){
+    track('lead_submitted', estimatePayload());
+    S.leadSent = true;
+    S.stack = [];
+    /* Spec §2: the cost guide is the stage that follows conversion. Tailored
+       and out-of-area routes have no calculated range, so they confirm. */
+    go((S.screen === 'conversion' && t && S.scope) ? 'result' : 'success', false);
+  }).catch(function(){
+    btn.disabled = false;
+    btn.textContent = label;
+    errBox.textContent = 'We could not send that just now. Please try again'
+      + (CONFIG.phone ? ', call us on ' + CONFIG.phone : '')
+      + (CONFIG.leadEmail ? ', or email us at ' + CONFIG.leadEmail + '.' : '.');
+    errBox.classList.add('on');
+    errBox.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+}
+
+/* Success is shown only when the server confirms receipt (spec §12.2). */
+function send(payload){
+  if(CONFIG.leadEndpoint){
+    var fd = new FormData();
+    Object.keys(payload).forEach(function(k){ fd.append(k, payload[k]); });
+    S.files.forEach(function(f,i){ fd.append('photo_'+(i+1), f, f.name); });
+    return fetch(CONFIG.leadEndpoint, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: fd
+    }).then(function(res){
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      /* FormSubmit answers 200 with {"success":"false"} before the receiving
+         inbox has clicked its one-time activation link. Spec §12.2 treats
+         that as a failure, not a successful send, so it is checked here. */
+      return res.text().then(function(body){
+        if(/"success"\s*:\s*("false"|false)/i.test(body)){
+          throw new Error('relay not yet activated: ' + body.slice(0, 200));
+        }
+        return true;
+      });
+    });
+  }
+  if(typeof window.buildspaceSubmitLead === 'function'){
+    return Promise.resolve(window.buildspaceSubmitLead(payload, S.files));
+  }
+  if(CONFIG.demoMode){
+    console.log('[BuildSpace cost guide] demo submission — no endpoint configured:', payload);
+    return new Promise(function(r){ setTimeout(r, 700); });
+  }
+  return Promise.reject(new Error('No lead endpoint configured'));
+}
+
+/* ============================================================================
+   INIT
+   ========================================================================== */
+(function init(){
+  if(S.postcode){
+    if(!inServiceArea(S.postcode)){ S.screen = 'outside'; }
+    else { S.screen = 'category'; track('estimator_started', {postcode:S.postcode}); }
+  } else {
+    S.screen = 'postcode';
+  }
+  render();
+})();
+</script>
+</body>
+</html>
