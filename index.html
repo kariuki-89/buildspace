@@ -72,11 +72,12 @@ body{
   letter-spacing:-.04em;
   line-height:1.12;
   margin-bottom:10px;
-  text-align:center;
+  text-align:left;
 }
 .bs-q em{font-style:italic;color:var(--coral);font-weight:600}
-.bs-sub{font-size:15.5px;color:var(--muted);margin:0 auto 28px;max-width:56ch;line-height:1.5;text-align:center}
+.bs-sub{font-size:15.5px;color:var(--muted);margin:0 0 28px;max-width:56ch;line-height:1.5;text-align:left}
 .bs-screen{animation:fade .34s cubic-bezier(.4,0,.2,1)}
+.bs-screen-narrow{width:100%;max-width:620px;margin-left:auto;margin-right:auto}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ── CARD GRIDS ── */
@@ -293,9 +294,9 @@ body{
 }
 .bs-icon-lg.ok{background:linear-gradient(160deg,rgba(31,169,113,.10),rgba(31,169,113,.18));box-shadow:0 16px 30px -16px rgba(31,169,113,.45)}
 .bs-icon-lg svg{width:28px;height:28px}
-.bs-postcode-wrap{max-width:420px;margin:0 auto}
+.bs-postcode-wrap{max-width:420px;margin:0}
 .bs-small{font-size:12.5px;color:var(--light);line-height:1.5;margin-top:14px}
-.bs-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--light);line-height:1.55;text-align:center}
+.bs-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--light);line-height:1.55;text-align:left}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 @media (max-width:700px){
@@ -1154,7 +1155,7 @@ function navRow(extra){
 /* ---- 0. postcode -------------------------------------------------------- */
 function screenPostcode(){
   setProgress(0);
-  return '<section class="bs-screen">'
+  return '<section class="bs-screen bs-screen-narrow">'
     + '<h1 class="bs-q">See what your project <em>could cost</em></h1>'
     + '<p class="bs-sub">Enter your postcode and choose the type of space you want to create. No measurements needed.</p>'
     + '<div class="bs-postcode-wrap">'
