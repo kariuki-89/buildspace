@@ -72,9 +72,10 @@ body{
   letter-spacing:-.04em;
   line-height:1.12;
   margin-bottom:10px;
+  text-align:center;
 }
 .bs-q em{font-style:italic;color:var(--coral);font-weight:600}
-.bs-sub{font-size:15.5px;color:var(--muted);margin-bottom:28px;max-width:56ch;line-height:1.5}
+.bs-sub{font-size:15.5px;color:var(--muted);margin:0 auto 28px;max-width:56ch;line-height:1.5;text-align:center}
 .bs-screen{animation:fade .34s cubic-bezier(.4,0,.2,1)}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
@@ -292,9 +293,9 @@ body{
 }
 .bs-icon-lg.ok{background:linear-gradient(160deg,rgba(31,169,113,.10),rgba(31,169,113,.18));box-shadow:0 16px 30px -16px rgba(31,169,113,.45)}
 .bs-icon-lg svg{width:28px;height:28px}
-.bs-postcode-wrap{max-width:420px}
+.bs-postcode-wrap{max-width:420px;margin:0 auto}
 .bs-small{font-size:12.5px;color:var(--light);line-height:1.5;margin-top:14px}
-.bs-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--light);line-height:1.55}
+.bs-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--light);line-height:1.55;text-align:center}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 @media (max-width:700px){
@@ -1505,6 +1506,29 @@ function render(){
   if(S.screen === 'result') track('estimate_viewed', estimatePayload());
   var focusTarget = MAIN.querySelector('h1');
   if(focusTarget){ focusTarget.setAttribute('tabindex','-1'); }
+  reportHeight();
+}
+
+/* Tell the parent Webflow page the estimator's real content height. This
+   removes the need for a fixed-height iframe and keeps the Webflow footer
+   directly below the estimator as users move through taller/shorter screens. */
+var lastReportedHeight = 0;
+function reportHeight(){
+  window.requestAnimationFrame(function(){
+    var guide = document.querySelector('.bs');
+    var height = guide ? Math.ceil(guide.getBoundingClientRect().height) : 0;
+    if(height < 1) return;
+    if(height === lastReportedHeight) return;
+    lastReportedHeight = height;
+    window.parent.postMessage({ type:'buildspace:height', height:height }, '*');
+  });
+}
+
+window.addEventListener('load', reportHeight);
+window.addEventListener('resize', reportHeight);
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(reportHeight); }
+if(window.ResizeObserver){
+  new ResizeObserver(reportHeight).observe(document.documentElement);
 }
 
 function estimatePayload(){
